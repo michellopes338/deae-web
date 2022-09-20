@@ -1,0 +1,16 @@
+.grid {
+  display: grid;
+  grid-template-rows: 60vh;
+}
+
+.wrapper {
+  overflow: hidden;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, 50%);
+  width: 500px;
+}
