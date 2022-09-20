@@ -7,6 +7,7 @@ import { ISelectables } from "interfaces/Selectables";
 import { useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { api } from "services/api";
 import * as Yup from 'yup';
 
@@ -14,6 +15,7 @@ export function AddDeae() {
   const formRef = useRef<FormHandles>(null)
   const [hidden, setHidden] = useState(true)
   const [cookies] = useCookies(['access_token'])
+  const navigate = useNavigate()
   const queryOptions = {
     staleTime: 1000 * 60,
     refetchOnWindowFocus: false
@@ -113,7 +115,10 @@ export function AddDeae() {
             <button className="button is-primary is-fullwidth">Enviar</button>
           </div>
           <div className="column">
-            <button className="button is-warning is-fullwidth">Cancelar</button>
+            <button className="button is-warning is-fullwidth" onClick={(e) => {
+              e.preventDefault()
+              navigate(-1)
+            }}>Cancelar</button>
           </div>
         </div>
       </Form>

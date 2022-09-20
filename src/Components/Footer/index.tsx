@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile, faFileCircleCheck, faStore } from '@fortawesome/free-solid-svg-icons';
+import { faFile, faIdCardClip } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from 'react-query';
 import { api } from 'services/api';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ export function Footer() {
   const oneMinute = 1000 * 60;
   const [cookies] = useCookies(['access_token'])
 
-  const { data: role, error } = useQuery<UserRole>('showPermission', async () => {
+  const { data: role } = useQuery<UserRole>('showPermission', async () => {
     const response = await api.get('users/permission', {
       headers: {
         Authorization: `Bearer ${cookies.access_token}`
@@ -46,21 +46,13 @@ export function Footer() {
             </div>
           </Link>
         </div>
-        <div className="level-item has-text-centered">
-          <Link to='/loja'>
-            <div>
-              <p className="heading">Loja</p>
-              <FontAwesomeIcon icon={faStore} />
-            </div>
-          </Link>
-        </div>
         {/* only admin */}
         {role?.role === 'ADMIN' && (
           <div className="level-item has-text-centered">
-            <Link to='/aprovar-deae'>
+            <Link to='/admin'>
               <div>
-                <p className="heading">Aprovar deae</p>
-                <FontAwesomeIcon icon={faFileCircleCheck} />
+                <p className="heading">admin</p>
+                <FontAwesomeIcon icon={faIdCardClip} />
               </div>
             </Link>
           </div>

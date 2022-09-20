@@ -1,3 +1,4 @@
+import { Footer } from "Components/Footer"
 import { IDeae } from "interfaces/Deae"
 import { useState } from "react"
 import { useCookies } from "react-cookie"
@@ -15,7 +16,6 @@ export function Approve() {
     return response.data;
   }, {
     staleTime: 1000 * 60,
-    refetchOnWindowFocus: false,
   })
 
   async function approveDeae(deaeId: string) {
@@ -47,7 +47,10 @@ export function Approve() {
 
   if (deaes?.length === 0) {
     return (
-      <h2 className="title">Não há nenhum deae para aprovar</h2>
+      <>
+        <h2 className="title">Não há nenhum deae para aprovar</h2>
+        <Footer />
+      </>
     )
   }
 
@@ -79,6 +82,7 @@ export function Approve() {
           </div>
         </div>
       ))}
+      <Footer />
     </div>
   )
 }

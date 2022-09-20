@@ -28,7 +28,7 @@ export function EditaDeae() {
     Authorization: `Bearer ${cookies.access_token}`
   }
 
-  const { data: deae, error } = useQuery<IDeae>('getDeae', async () => {
+  const { data: deae } = useQuery<IDeae>('getDeae', async () => {
     const response = await api.get(`deaes/relationed/${id}`, { headers });
 
     return response.data;
@@ -44,13 +44,13 @@ export function EditaDeae() {
     const response = await api.get('selectables/local', { headers });
 
     return response.data;
-  })
+  }, queryOptions)
 
   const { data: status } = useQuery<ISelectables[]>('listStatus', async () => {
     const response = await api.get('selectables/status', { headers });
 
     return response.data;
-  })
+  }, queryOptions)
 
   if (!deae) {
     return <h1 className="title">Houve um problema</h1>
@@ -82,6 +82,7 @@ export function EditaDeae() {
               if (deae.id === res.data.id) {
                 return { ...res.data }
               }
+              return deae;
             })
 
             queryClient.setQueryData('listMyDeaes', deaeUpdated)
@@ -90,9 +91,16 @@ export function EditaDeae() {
         .catch(err => {
           console.warn(err)
         })
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        console.log(error.cause)
+    } catch (err) {
+      const validationErrors: any = {}
+
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          const path = String(error.path);
+          validationErrors[path] = error.message;
+        });
+
+        formRef.current?.setErrors(validationErrors);
       }
     }
   }

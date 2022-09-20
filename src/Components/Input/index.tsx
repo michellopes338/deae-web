@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { useField } from '@unform/core'
+import classNames from 'classnames';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   name: string;
@@ -30,7 +31,10 @@ export default function Input({ name, ...rest }: Props) {
     <>
       <input
         id={fieldName}
-        className='input'
+        className={classNames({
+          "input": true,
+          "is-danger": error
+        })}
         ref={inputRef}
         defaultValue={defaultValue}
         {...rest}

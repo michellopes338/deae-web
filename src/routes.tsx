@@ -1,5 +1,6 @@
-import { Footer } from "Components/Footer";
 import { AddDeae } from "pages/AddDeae";
+import { Admin } from "pages/Admin";
+import { AdminConfigs } from "pages/AdminConfigs";
 import { Approve } from "pages/Approve";
 import { EditaDeae } from "pages/EditaDeae";
 import { MyDeaes } from "pages/MyDeaes";
@@ -17,7 +18,9 @@ export function AppRoute() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/meus-deaes" element={<MyDeaes />} />
-          <Route path="/aprovar-deae" element={<Approve />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/aprovar-deae" element={<Approve />} />
+          <Route path="/admin/configuracoes" element={<AdminConfigs />} />
           <Route path="/adicionar-deae" element={<AddDeae />} />
           <Route path="/meus-deaes/edita/:id" element={<EditaDeae />} />
         </Routes>
